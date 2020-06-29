@@ -35,6 +35,7 @@ public class AuthorizationTest {
         user = DataHelper.getUserInstBD();
         verificationPage = loginPage.validLogin(user);
         verificationPage.validCodeVerify(user);
+        delData();
     }
 
     @Test
@@ -45,7 +46,7 @@ public class AuthorizationTest {
         $(withText("Система заблокированна!")).waitUntil(visible, 150);
     }
 
-
+    @AfterAll
     static void delData() throws SQLException {
         val delSQLtransfer = "DELETE FROM card_transactions;";
         val delSQLcard = "DELETE FROM cards;";
@@ -55,10 +56,10 @@ public class AuthorizationTest {
         try (
                 val conn = DriverManager.getConnection("jdbc:mysql://192.168.99.100:3306/app", "app", "pass");
         ) {
-           runner.update(conn, delSQLtransfer);
-           runner.update(conn, delSQLcard);
-           runner.update(conn, delSQLcode);
-           runner.update(conn, delSQLuser);
+            runner.update(conn, delSQLtransfer);
+            runner.update(conn, delSQLcard);
+            runner.update(conn, delSQLcode);
+            runner.update(conn, delSQLuser);
         }
     }
 
