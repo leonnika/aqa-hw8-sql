@@ -5,10 +5,8 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.data.DataHelper;
-import ru.netology.data.User;
-import ru.netology.page.LoginPage;
-import ru.netology.page.VerificationPage;
+import ru.netology.data.*;
+import ru.netology.page.*;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -46,15 +44,32 @@ public class AuthorizationTest {
         $(withText("Система заблокированна!")).waitUntil(visible, 150);
     }
 
+//    @Test
+//    void shouldAuthorizationTransferMoneyAPI() throws SQLException {
+//        UserAPI user = DataHelperAPI.getUserAPI();
+//        LoginAPI loginAPI = new LoginAPI();
+//        loginAPI.jsonPartLogin(user);
+//        VerificationAPI verification = new VerificationAPI();
+//        UserCode userCode = DataHelperAPI.getVerificationCode(user);
+//        String token = verification.jsonPartCode(userCode);
+//        CardAPI listCard = new CardAPI();
+//        listCard.jsonPartListCard(token);
+//        TransferAPI transferAPI = new TransferAPI();
+//        Transfer transfer = DataHelperAPI.getTransferAPI();
+//        transferAPI.jsonPartTransfer(transfer, token);
+//    }
+
     @AfterAll
-    static void delData() throws SQLException {
+    public static void delData() throws SQLException {
         val delSQLtransfer = "DELETE FROM card_transactions;";
         val delSQLcard = "DELETE FROM cards;";
         val delSQLcode = "DELETE FROM auth_codes;";
         val delSQLuser = "DELETE FROM users;";
         val runner = new QueryRunner();
         try (
-                val conn = DriverManager.getConnection("jdbc:mysql://192.168.99.100:3306/app", "app", "pass");
+                val conn = DriverManager.getConnection(
+                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                );
         ) {
             runner.update(conn, delSQLtransfer);
             runner.update(conn, delSQLcard);
@@ -62,5 +77,6 @@ public class AuthorizationTest {
             runner.update(conn, delSQLuser);
         }
     }
-
 }
+
+

@@ -55,11 +55,8 @@ public class DataHelper {
         val dataSQL = "SELECT code FROM auth_codes WHERE user_id = ?";
         val conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
         String id=user.getId();
-        System.out.println(id);
         String code = runner.query(conn, dataSQL, new ScalarHandler<>(),id);
-        System.out.println(code);
-                return code;
-
+        return code;
     }
 
     public static VerificationCode getNotVerificationCodeFor() {

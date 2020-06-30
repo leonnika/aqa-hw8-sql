@@ -1,6 +1,9 @@
 package ru.netology.test;
 
 
+import lombok.val;
+import org.apache.commons.dbutils.QueryRunner;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelperAPI;
 import ru.netology.data.Transfer;
@@ -11,6 +14,7 @@ import ru.netology.page.LoginAPI;
 import ru.netology.page.TransferAPI;
 import ru.netology.page.VerificationAPI;
 
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class TransferMoneyAPITest {
@@ -30,4 +34,4 @@ public class TransferMoneyAPITest {
         Transfer transfer = DataHelperAPI.getTransferAPI();
         transferAPI.jsonPartTransfer(transfer, token);
     }
-}
+   }
