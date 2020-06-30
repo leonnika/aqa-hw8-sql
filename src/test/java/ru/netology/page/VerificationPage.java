@@ -18,6 +18,18 @@ public class VerificationPage {
         codeField.shouldBe(visible);
     }
 
+    public void EmptyCodeVerify()  {
+         verifyButton.click();
+        SelenideElement code = $("[data-test-id=code]");
+        code.$("[class='input__sub']").shouldHave(exactText("Поле обязательно для заполнения"));
+         }
+
+    public void invalidCodeVerify()  {
+        codeField.setValue(DataHelper.getNotVerificationCode());
+        verifyButton.click();
+        $(withText("Неверно указан код")).waitUntil(visible, 15000);
+    }
+
     public DashboardPage validCodeVerify(User user) throws SQLException {
         codeField.setValue(DataHelper.getVerificationCode(user));
         verifyButton.click();

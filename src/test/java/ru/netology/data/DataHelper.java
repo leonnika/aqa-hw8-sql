@@ -59,9 +59,9 @@ public class DataHelper {
         return code;
     }
 
-    public static VerificationCode getNotVerificationCodeFor() {
+    public static String getNotVerificationCode() {
         Faker faker = new Faker(new Locale("ru"));
         String code = faker.regexify("[0-9]{10}");
-        return new VerificationCode(code);
+        return  code;
     }
 }

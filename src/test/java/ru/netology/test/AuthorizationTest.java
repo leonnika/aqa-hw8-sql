@@ -33,31 +33,52 @@ public class AuthorizationTest {
         user = DataHelper.getUserInstBD();
         verificationPage = loginPage.validLogin(user);
         verificationPage.validCodeVerify(user);
-        delData();
+           }
+
+    @Test
+    void shouldNotAuthorizationValidUserInValidCode() throws SQLException {
+        loginPage = new LoginPage();
+        user = DataHelper.getUserInstBD();
+        verificationPage = loginPage.validLogin(user);
+        verificationPage.validCodeVerify(user);
     }
 
     @Test
-    void shouldNotAuthorizationInvalidPassword() throws SQLException {
+    void shouldNotAuthorizationInvalidUser() throws SQLException {
+        loginPage = new LoginPage();
+        user = DataHelper.getInvalidUser();
+        loginPage.invalidLogin(user);
+        }
+
+    @Test
+    void shouldNotAuthorizationPasswordEmpty() throws SQLException {
         loginPage = new LoginPage();
         user = DataHelper.getUserInstBD();
-        loginPage.invalidThreePassword(user);
-        $(withText("Система заблокированна!")).waitUntil(visible, 150);
+        loginPage.passwordEmpty(user);
     }
 
-//    @Test
-//    void shouldAuthorizationTransferMoneyAPI() throws SQLException {
-//        UserAPI user = DataHelperAPI.getUserAPI();
-//        LoginAPI loginAPI = new LoginAPI();
-//        loginAPI.jsonPartLogin(user);
-//        VerificationAPI verification = new VerificationAPI();
-//        UserCode userCode = DataHelperAPI.getVerificationCode(user);
-//        String token = verification.jsonPartCode(userCode);
-//        CardAPI listCard = new CardAPI();
-//        listCard.jsonPartListCard(token);
-//        TransferAPI transferAPI = new TransferAPI();
-//        Transfer transfer = DataHelperAPI.getTransferAPI();
-//        transferAPI.jsonPartTransfer(transfer, token);
-//    }
+    @Test
+    void shouldNotAuthorizationloginEmpty() throws SQLException {
+        loginPage = new LoginPage();
+        user = DataHelper.getUserInstBD();
+        loginPage.loginEmpty(user);
+    }
+
+    @Test
+    void shouldNotAuthorizationValidUserInvalidCode() throws SQLException {
+        loginPage = new LoginPage();
+        user = DataHelper.getUserInstBD();
+        verificationPage = loginPage.validLogin(user);
+        verificationPage.invalidCodeVerify();
+    }
+
+    @Test
+    void shouldNotAuthorizationValidUserCodeEmpty() throws SQLException {
+        loginPage = new LoginPage();
+        user = DataHelper.getUserInstBD();
+        verificationPage = loginPage.validLogin(user);
+        verificationPage.EmptyCodeVerify();
+    }
 
     @AfterAll
     public static void delData() throws SQLException {
